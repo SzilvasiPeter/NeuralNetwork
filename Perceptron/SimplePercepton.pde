@@ -9,44 +9,72 @@ void settings() {
 
 void setup() {
   background(200);
-  frameRate(60);
-  brain = new Perceptron1();
+  frameRate(30);
+  //noLoop();
+  brain = new Perceptron1(3);
 
   for (int i = 0; i < points.length; i++) {
     points[i] = new Point();
   }
-
-  float[] inputs = {-1,0.5};
-  int guess = brain.guess(inputs);
-  println(guess);
+ 
 }
 
 void draw() {
   stroke(0);
-  line(0, 0, width, height);
+  //line(0, height, width, 0);
+  Point p1 = new Point(-1, f(-1));
+  Point p2 = new Point(1, f(1));
+  line(p1.pixelX(), p1.pixelY(), p2.pixelX(), p2.pixelY());
+
+  Point p3 = new Point(-1, brain.guessY(-1));
+  Point p4 = new Point(1, brain.guessY(1));
+  Line line = new Line(p3.pixelX(), p3.pixelY(),p4.pixelX(), p4.pixelY());
+  
+  line.drawLine();
+  delay(500);
+  line.clearLine();
+  //line(p3.pixelX(), p3.pixelY(),p4.pixelX(), p4.pixelY()); 
+
   for (Point pt : points) {
     pt.show();
   }
   for (Point pt : points) {
-    float[] inputs = {pt.x, pt.y};
+    float[] inputs = {pt.x, pt.y, pt.bias};
     int target = pt.label;
     //brain.train(inputs, target);
     int guess = brain.guess(inputs);
-    if(guess == target){
-      fill(0,255,0);
-    }else{
-      fill(255,0,0);
+    if (guess == target) {
+      fill(0, 255, 0);
+    } else {
+      fill(255, 0, 0);
     }
-      noStroke();
-      ellipse(pt.x, pt.y, 8, 8);
-    }
-    
-    Point training = points[trainingIndex];
-    float[] inputs = {training.x, training.y};
-    int target = training.label;
-    brain.train(inputs, target);
-    trainingIndex++;
-    if(trainingIndex == points.length){
-      trainingIndex = 0; 
-    }
+    noStroke();
+    ellipse(pt.pixelX(), pt.pixelY(), 8, 8);
   }
+
+  Point training = points[trainingIndex];
+  float[] inputs = {training.x, training.y, training.bias};
+  int target = training.label;
+  brain.train(inputs, target);
+  trainingIndex++;
+  if (trainingIndex == points.length) {
+    trainingIndex = 0;
+  }
+}
+class Line {
+  float x1, y1, x2, y2;
+  Line(float x1_, float y1_, float x2_, float y2_) {
+    x1 = x1_;
+    y1 = y1_;
+    x2 = x2_;
+    y2 = y2_;
+  }
+  void drawLine() {
+    stroke(0);
+    line(x1, y1, x2, y2);
+  }
+  void clearLine(){
+    stroke(200);
+    line(x1, y1, x2, y2);
+  }
+}
