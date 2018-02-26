@@ -32,4 +32,8 @@ class NeuralNetwork{
 		//Sening it back to array
 		return out.toArray();
 	}
+
+	train(inputs, answer){
+
+	}
 }
