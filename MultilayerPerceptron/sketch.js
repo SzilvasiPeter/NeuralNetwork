@@ -3,7 +3,7 @@ var brain;
 
 function setup(){
 
-	let a = new Matrix(2, 2);
+	/*let a = new Matrix(2, 2);
 	a.randomize();
 	a.print();
 
@@ -12,7 +12,7 @@ function setup(){
 	}
 
 	a.map(doubleIt);
-	a.print();
+	a.print();*/
 
 	/*let a = new Matrix(2,3);
 	let b = new Matrix(3,2);
@@ -29,8 +29,11 @@ function setup(){
 	let e = d.transpose();
 	console.table(d.matrix);
 	console.table(e.matrix);*/
-}
 
-function draw(){
+	let nn = new NeuralNetwork(2, 2, 1);
 
+	let input = [1, 0];
+
+	let output = nn.feedforward(input);
+	console.log(output);
 }
