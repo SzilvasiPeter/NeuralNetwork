@@ -30,10 +30,14 @@ function setup(){
 	console.table(d.matrix);
 	console.table(e.matrix);*/
 
-	let nn = new NeuralNetwork(2, 2, 1);
+	let nn = new NeuralNetwork(2, 2, 2);
 
-	let input = [1, 0];
+	let inputs = [1, 0];
+	let targets = [1, 0];
 
-	let output = nn.feedforward(input);
-	console.log(output);
+	//let output = nn.feedforward(input);
+	
+	nn.train(inputs, targets);
+
+	//console.log(output);
 }

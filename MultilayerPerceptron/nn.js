@@ -34,6 +34,22 @@ class NeuralNetwork{
 	}
 
 	train(inputs, answer){
+		let output = this.feeforward(inputs);
 
+		// Convert to array
+		outputs = Matrix.fromArray(outputs);
+		targets = Matrix.fromArray(targets);
+
+		//Calculate the error
+		// Error = Target - Outputs
+		let output_error = Matrix.substract(targets, outputs);
+
+		//Calculate a hidden layer errors
+		let who_t = Matrix.transpose(this.weights_ho);
+		let hidden_errors = Matrix.multiply(who_t, output_error);
+
+		/*outputs.print();
+		targets.print();
+		error.print();*/
 	}
 }
