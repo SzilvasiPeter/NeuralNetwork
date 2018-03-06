@@ -85,11 +85,20 @@ class Matrix{
 	}
 
 	multiply(n){
-		//Scaler prodcut
-		for(let i = 0; i < this.rows; i++){
-			for(let j = 0; j < this.cols; j++){
-				this.data[i][j] *= n;
+		if(n instanceof Matrix){
+			//hadamard product
+			for(let i = 0; i < this.rows; i++){
+				for(let j = 0; j < this.cols; j++){
+					this.data[i][j] *= n.data[i][j];
+				}
 			}
+		}else{
+			//Scaler prodcut
+			for(let i = 0; i < this.rows; i++){
+				for(let j = 0; j < this.cols; j++){
+					this.data[i][j] *= n;
+				}
+			}	
 		}
 	}
 
@@ -117,6 +126,18 @@ class Matrix{
 				this.data[i][j] = func(val);
 			}
 		}
+	}
+
+	static map(matrix, func){
+		let result = new Matrix(matrix.rows, matrix.cols);
+		
+		for(let i = 0; i < matrix.rows; i++){
+			for(let j = 0; j < matrix.cols; j++){
+				let val = matrix.data[i][j];
+				matrix.data[i][j] = func(val);
+			}
+		}
+
 	}
 
 	print(){
