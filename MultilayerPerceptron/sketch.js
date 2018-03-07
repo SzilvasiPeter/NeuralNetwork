@@ -1,4 +1,4 @@
-let training_data = [
+/*let training_data = [
 	{
 		inputs: [0, 0],
 		targets: [0]
@@ -29,7 +29,7 @@ function setup(){
 	}
 
 	a.map(doubleIt);
-	a.print();*/
+	a.print();
 
 	/*let a = new Matrix(2,3);
 	let b = new Matrix(3,2);
@@ -45,7 +45,7 @@ function setup(){
 	d.randomize();
 	let e = d.transpose();
 	console.table(d.matrix);
-	console.table(e.matrix);*/
+	console.table(e.matrix);
 
 	let nn = new NeuralNetwork(2, 2, 1);
 
@@ -59,4 +59,37 @@ function setup(){
 	console.log(nn.feedforward([0, 1]));
 	console.log(nn.feedforward([1, 1]));
 	//console.log(output);
+}*/
+
+let nn;
+
+let training_data =[
+	{
+		inputs: [0,0],
+		outputs: [0]
+	},
+	{
+		inputs: [0,1],
+		outputs: [1]
+	},
+	{
+		inputs: [1,0],
+		outputs: [1]
+	},
+	{
+		inputs: [1,1],
+		outputs: [0]
+	}
+];
+
+function setup(){
+	createCanvas(400,400);
+	nn = new NeuralNetwork(2,2,1); 
+}
+
+function draw(){
+	background(0);
+
+	let data = random(training_data)
+	nn.train(data.inputs, data.outputs);
 }
